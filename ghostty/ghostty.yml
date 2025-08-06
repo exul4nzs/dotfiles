@@ -1,0 +1,8 @@
+keys:
+  - key: CapsLock
+    action: Send
+    escape: true
+env:
+  TERM: xterm-256color
+debug:
+  enable: false  # Disables debug output
