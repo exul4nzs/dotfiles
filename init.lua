@@ -1,5 +1,18 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.api.nvim_set_hl(0, "NoicePopup", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoicePopupBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopup", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceCmdlinePopupBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceLspProgressSpinner", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceLspProgressTitle", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoiceLspProgressClient", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NoicePopup", { bg = "NONE" })
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -23,6 +36,29 @@ require("lazy").setup({
   },
 
   { import = "plugins" },
+  -- Add these with explicit event triggers
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("gitsigns").setup()
+    end
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPost",
+    config = function()
+      require("treesitter-context").setup({
+        enable = true,
+        max_lines = 3,
+        patterns = {
+          default = {
+            'class', 'function', 'method',
+          },
+        },
+      })
+    end
+  }
 }, lazy_config)
 
 -- load theme
@@ -35,3 +71,5 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+
