@@ -1,5 +1,3 @@
--- ~/.config/nvim/lua/custom/ui/tabufline.lua
-
 local M = {}
 
 local api = vim.api
