@@ -22,6 +22,7 @@ return {
     { "hrsh7th/cmp-path" },
     { "hrsh7th/cmp-cmdline" },
     { "saadparwaiz1/cmp_luasnip" },
+    { "hrsh7th/cmp-emoji" },
   },
   config = function()
     local lsp = require("lsp-zero")
@@ -93,13 +94,13 @@ return {
       sources = cmp.config.sources({
         { name = "path" },
       }, {
-        {
-          name = "cmdline",
-          option = {
-            ignore_cmds = { "Man", "!" },
+          {
+            name = "cmdline",
+            option = {
+              ignore_cmds = { "Man", "!" },
+            },
           },
-        },
-      }),
+        }),
     })
 
     cmp.setup({
@@ -113,6 +114,7 @@ return {
         { name = "luasnip", keyword_length = 2 },
         { name = "buffer", keyword_length = 3 },
         { name = "path" },
+        { name = "emoji" },
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
