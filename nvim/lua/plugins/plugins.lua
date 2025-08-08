@@ -1,4 +1,4 @@
-﻿return {
+return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     event = "VeryLazy",
@@ -16,6 +16,7 @@
       })
     end,
   },
+
   { 'brenoprata10/nvim-highlight-colors' },
   { "tpope/vim-projectionist" },
   {
@@ -46,6 +47,7 @@
     dependencies = {
       "nvim-lua/plenary.nvim",  -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional - Telescope integration
     },
     config = true,
   },
@@ -378,6 +380,15 @@
   {
     "tpope/vim-fugitive",
     event = "VeryLazy",
+
+    config = function()
+      vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Fugitive Panel" })
+    end,
+  },
+  {
+    "tpope/vim-fugitive",
+    event = "VeryLazy",
+
     config = function()
       vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Fugitive Panel" })
     end,
@@ -637,6 +648,9 @@
           "google-java-format",
           "htmlbeautifier",
           "beautysh",
+          "css-lsp",
+          "tailwindcss-language-server",
+          "typescript-language-server",
           "buf",
           "rustfmt",
           "yamlfix",
@@ -712,14 +726,27 @@
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("todo-comments").setup({
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      })
+      require("todo-comments").setup({})
     end,
     lazy = false
   },
   {'bfrg/vim-cpp-modern'},
   {'p00f/clangd_extensions.nvim'},
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, },
+    },
+    init = function()
+      vim.g.db_ui_use_nvim_notify = 1
+    end,
+    keys = {
+      { "<leader>Db", "<cmd>DBUI<cr>", desc = "DB UI" },
+      { "<leader>Dbc", "<cmd>DBUIAddConnection<cr>", desc = "DB UI Add Connection" },
+      { "<leader>Dbf", "<cmd>DBUIFindBuffer<cr>", desc = "DB UI Find Buffer" },
+      { "<leader>Dbn", "<cmd>DBUIRenameBuffer<cr>", desc = "DB UI Rename Buffer" },
+      { "<leader>Dbi", "<cmd>DBUILastQueryInfo<cr>", desc = "DB UI Last Query Info" },
+    },
+  },
 }
