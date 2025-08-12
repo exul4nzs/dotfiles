@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿require "nvchad.options"
+=======
+require "nvchad.options"
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
 vim.g.mapleader = ' '
 vim.opt.guifont = "JetBrainsMono Nerd Font:h14"
 vim.g.maplocalleader = ' '
@@ -41,5 +45,8 @@ vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 -- vim.opt.incommand = "split"
 vim.opt.mouse = ""
+<<<<<<< HEAD
 vim.opt.updatetime = 8000
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1

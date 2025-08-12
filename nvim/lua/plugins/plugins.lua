@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿return {
+=======
+return {
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
   {
     'MeanderingProgrammer/render-markdown.nvim',
     event = "VeryLazy",
@@ -37,6 +41,7 @@
             enabled = true,
             leave_dirs_open = true,
           },
+<<<<<<< HEAD
           window = {
             mappings = {
               ["<cr>"] = "toggle_node",  -- Verify this mapping exists
@@ -47,6 +52,8 @@
           mappings = {
             ["<cr>"] = "toggle_node",  -- Verify this mapping exists
           }
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
         },
       })
     end,
@@ -100,11 +107,14 @@
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
+<<<<<<< HEAD
       lsp = {
         signature = { enabled = false },
         hover = { enabled = false },
         progress = { enabled = false },
       },
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
       routes = {
         {
           filter = { event = "notify", find = "No information available" },
@@ -173,6 +183,7 @@
           lua = { "stylua" },
           svelte = { { "prettierd", "prettier", stop_after_first = true } },
           astro = { { "prettierd", "prettier", stop_after_first = true } },
+<<<<<<< HEAD
           cs = { "csharpier" },
           -- javascript = { { "prettierd", "prettier", stop_after_first = true } },
           -- typescript = { { "prettierd", "prettier", stop_after_first = true } },
@@ -184,6 +195,13 @@
           javascriptreact = { "biome" },
           typescriptreact = { "biome" },
           json = { "biome" },
+=======
+          javascript = { { "prettierd", "prettier", stop_after_first = true } },
+          typescript = { { "prettierd", "prettier", stop_after_first = true } },
+          javascriptreact = { { "prettierd", "prettier", stop_after_first = true } },
+          typescriptreact = { { "prettierd", "prettier", stop_after_first = true } },
+          json = { { "prettierd", "prettier", stop_after_first = true } },
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
           graphql = { { "prettierd", "prettier", stop_after_first = true } },
           java = { "google-java-format" },
           kotlin = { "ktlint" },
@@ -202,12 +220,15 @@
           go = { "gofmt" },
           xml = { "xmllint" },
         },
+<<<<<<< HEAD
         formatters = {
           csharpier = {
             command = "dotnet-csharpier",
             args = {  "--write-stdout" },
           }
         }
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
       })
 
       vim.keymap.set({ "n", "v" }, "<leader>l", function()
@@ -450,6 +471,7 @@
       "weilbith/neotest-gradle",
       "nvim-neotest/neotest-go",
     },
+<<<<<<< HEAD
     opts = {
       adapters = {
         ["rustaceanvim.neotest"] = {},
@@ -475,6 +497,9 @@
         },
       },
     },
+=======
+    opts = {},
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
     config = function()
       local neotest = require("neotest")
 
@@ -691,20 +716,28 @@
 
       mason_tool_installer.setup({
         ensure_installed = {
+<<<<<<< HEAD
           "phpcs",
           "php-cs-fixer",
           "standardrb",
           "prettier",
           "goimports",
           "gofumpt",
+=======
+          "standardrb",
+          "prettier",
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
           "prettierd",
           "ktlint",
           "eslint_d",
           "google-java-format",
           "htmlbeautifier",
           "beautysh",
+<<<<<<< HEAD
           "java-debug-adapter",
           "java-test",
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
           "css-lsp",
           "tailwindcss-language-server",
           "typescript-language-server",
@@ -788,6 +821,10 @@
     lazy = false
   },
   {'bfrg/vim-cpp-modern'},
+<<<<<<< HEAD
+=======
+  {'p00f/clangd_extensions.nvim'},
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
@@ -805,6 +842,7 @@
       { "<leader>Dbi", "<cmd>DBUILastQueryInfo<cr>", desc = "DB UI Last Query Info" },
     },
   },
+<<<<<<< HEAD
   {
     "nvzone/showkeys",
     event = "VeryLazy",
@@ -1423,4 +1461,6 @@
   --     },
   --   },
   -- },
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
 }

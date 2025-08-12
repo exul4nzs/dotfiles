@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- require("nvchad.configs.lspconfig").defaults()
 
 local on_attach = require("nvchad.configs.lspconfig").on_attach
@@ -102,6 +103,16 @@ local servers = {
   jdtls = {},
   ts_ls = {},
   zls = {},
+=======
+require("nvchad.configs.lspconfig").defaults()
+
+local servers = {
+  html = {},
+  cssls = {},
+  tsserver = {},
+  rust_analyzer = {},
+
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
   pylsp = {
     settings = {
       pylsp = {
@@ -128,6 +139,7 @@ local servers = {
       },
     },
   },
+<<<<<<< HEAD
   clangd = {
     keys = {
       { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
@@ -251,3 +263,11 @@ setup = {
   end,
 }
 
+=======
+
+
+}
+vim.lsp.enable(servers)
+
+-- read :h vim.lsp.config for changing options of lsp servers 
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1

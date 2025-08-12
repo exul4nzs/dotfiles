@@ -39,4 +39,7 @@ return {
   end,
   event = 'VeryLazy',
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1

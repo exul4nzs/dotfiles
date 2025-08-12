@@ -1,6 +1,7 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
+<<<<<<< HEAD
     svelte = { { "prettierd", "prettier", stop_after_first = true } },
     astro = { { "prettierd", "prettier", stop_after_first = true } },
     cs = { "csharpier" },
@@ -46,6 +47,17 @@ local options = {
     timeout_ms = 500,
     lsp_fallback = true,
   },
+=======
+    -- css = { "prettier" },
+    -- html = { "prettier" },
+  },
+
+  -- format_on_save = {
+  --   -- These options will be passed to conform.format()
+  --   timeout_ms = 500,
+  --   lsp_fallback = true,
+  -- },
+>>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
 }
 
 return options
