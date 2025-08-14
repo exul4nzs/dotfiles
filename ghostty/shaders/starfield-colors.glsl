@@ -4,6 +4,9 @@ const float repeats = 30.;
 // number of layers
 const float layers = 21.;
 
+// Speed control parameter (1.0 = original speed, 0.8 = 20% slower)
+const float speedFactor = 0.7;
+
 // star colours
 const vec3 blue = vec3(51.,64.,195.)/255.;
 const vec3 cyan = vec3(117.,250.,254.)/255.;
@@ -85,7 +88,7 @@ float perlin2(vec2 uv, int octaves, float pscale) {
 }
 
 vec3 stars(vec2 uv, float offset) {
-    float timeScale = -(iTime + offset) / layers;
+    float timeScale = -(iTime * speedFactor + offset) / layers; // Modified with speedFactor
     float trans = fract(timeScale);
     float newRnd = floor(timeScale);
     vec3 col = vec3(0.);
@@ -118,31 +121,22 @@ vec3 stars(vec2 uv, float offset) {
     col += spectrum(fract(rndXY*newRnd*ipos)) * vec3(sparkle);
 
     col *= smoothstep(1., 0.8, trans);
-    return col; // Return pure white stars only
+    return col;
 }
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-    // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = fragCoord/iResolution.xy;
-    
     vec3 col = vec3(0.);
 	
     for (float i = 0.; i < layers; i++ ){
     	col += stars(uv, i);
     }
 
-    // Sample the terminal screen texture including alpha channel
     vec4 terminalColor = texture(iChannel0, uv);
-
-    // Make a mask that is 1.0 where the terminal content is not black
-    // float mask = 1 - step(0.5, dot(terminalColor.rgb, vec3(1.0)));
-    float luminance = dot(terminalColor.rgb, vec3(0.299, 0.587, 0.114)); // standard grayscale
+    float luminance = dot(terminalColor.rgb, vec3(0.299, 0.587, 0.114));
     float mask = smoothstep(0.0, 0.3, luminance);
-    // vec3 blendedColor = mix(terminalColor.rgb, col, mask);
     vec3 blendedColor = terminalColor.rgb + col * (1.0 - mask);
     blendedColor = min(blendedColor, vec3(1.0));
-    // Apply terminal's alpha to control overall opacity
     fragColor = vec4(blendedColor, terminalColor.a);
-
 }
