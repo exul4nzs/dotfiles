@@ -1,5 +1,28 @@
-<<<<<<< HEAD
--- require("nvchad.configs.lspconfig").defaults()
+-- Custom diagnostic icons (preserves virtual text)
+vim.diagnostic.config {
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "", -- Error
+      [vim.diagnostic.severity.WARN] = "", -- Warning
+      [vim.diagnostic.severity.INFO] = "", -- Info
+      [vim.diagnostic.severity.HINT] = "󰌶", -- Hint
+    },
+    priority = 50, -- Lower than marks.nvim (100)
+  },
+  virtual_text = false, -- Keep IDE-like inline messages
+  underline = true, -- Keep underlines
+  update_in_insert = false, -- Avoid flickering while typing
+}
+
+-- Optional: Colorize icons
+vim.cmd [[
+  highlight DiagnosticSignError guifg=#ff6c6b guibg=NONE
+  highlight DiagnosticSignWarn  guifg=#ecbe7b guibg=NONE
+  highlight DiagnosticSignInfo  guifg=#98be65 guibg=NONE
+  highlight DiagnosticSignHint  guifg=#a9a1e1 guibg=NONE
+]]
+
+ -- require("nvchad.configs.lspconfig").defaults()
 
 local on_attach = require("nvchad.configs.lspconfig").on_attach
 local capabilities = require("nvchad.configs.lspconfig").capabilities
@@ -16,7 +39,6 @@ local servers = {
     organize_imports_on_format = true,
     enable_import_completion = true,
   },
-  html = {},
 
   jsonls = {
     -- lazy-load schemastore when needed
@@ -33,9 +55,7 @@ local servers = {
       },
     },
   },
-  intelephense = {
-    enabled = lsp == "intelephense",
-  },
+  intelephense = {},
   tailwindcss = {
     -- exclude a filetype from the default_config
     filetypes_exclude = { "markdown" },
@@ -45,6 +65,8 @@ local servers = {
     -- filetypes = {}
   },
   helm_ls = {},
+  vhdl_ls = {},
+  ruff = {},
 
   gopls = {
     settings = {
@@ -102,17 +124,6 @@ local servers = {
   cssls = {},
   jdtls = {},
   ts_ls = {},
-  zls = {},
-=======
-require("nvchad.configs.lspconfig").defaults()
-
-local servers = {
-  html = {},
-  cssls = {},
-  tsserver = {},
-  rust_analyzer = {},
-
->>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1
   pylsp = {
     settings = {
       pylsp = {
@@ -133,13 +144,14 @@ local servers = {
   lua_ls = {
     settings = {
       Lua = {
+        diagnostics = { globals = { "vim" } },
+        workspace = { checkThirdParty = false },
         completion = {
-          callSnippet = "Replace"
+          callSnippet = "Replace",
         },
       },
     },
   },
-<<<<<<< HEAD
   clangd = {
     keys = {
       { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
@@ -153,9 +165,9 @@ local servers = {
         "meson.build",
         "meson_options.txt",
         "build.ninja"
-      )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(
-          fname
-        ) or require("lspconfig.util").find_git_ancestor(fname)
+      )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or require(
+        "lspconfig.util"
+      ).find_git_ancestor(fname)
     end,
     capabilities = {
       offsetEncoding = { "utf-16" },
@@ -175,19 +187,32 @@ local servers = {
       clangdFileStatus = true,
     },
   },
+
+  zls = {
+    settings = {
+      zls = {
+        enable_semantic_tokens = true,
+        enable_inlay_hints = true,
+        warn_style = true,
+        enable_autofix = true,
+      }
+    }
+  }
 }
+
+
 -- vim.lsp.enable(servers)
 -- Initialize each LSP server
 for server_name, server_config in pairs(servers) do
-  lspconfig[server_name].setup({
-    on_attach = on_attach,          -- NvChad's default on_attach
-    capabilities = capabilities,    -- NvChad's default capabilities
+  lspconfig[server_name].setup {
+    on_attach = on_attach, -- NvChad's default on_attach
+    capabilities = capabilities, -- NvChad's default capabilities
     settings = server_config.settings or nil,
     cmd = server_config.cmd or nil,
     -- Merge other custom configs
-  })
+  }
 end
--- read :h vim.lsp.config for changing options of lsp servers 
+-- read :h vim.lsp.config for changing options of lsp servers
 
 setup = {
   hls = function()
@@ -262,12 +287,3 @@ setup = {
     end, "yamlls")
   end,
 }
-
-=======
-
-
-}
-vim.lsp.enable(servers)
-
--- read :h vim.lsp.config for changing options of lsp servers 
->>>>>>> 27faf42fcc5bc51571f09cc7aea64aa55b18a3e1

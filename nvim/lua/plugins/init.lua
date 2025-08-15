@@ -8,6 +8,17 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    dependencies = { 'saghen/blink.cmp',
+      {
+        "folke/lazydev.nvim",
+        opts = {
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+    },
+
     config = function()
       require "configs.lspconfig"
     end,
@@ -19,7 +30,7 @@ return {
       'jayp0521/mason-null-ls.nvim',
     },
     config = function()
-      require('mason-null-ls').setup{
+      require('mason-null-ls').setup {
         ensure_installed = {
           'ruff',
           'prettier',
@@ -28,11 +39,11 @@ return {
         automatic_installation = true,
       }
 
-      local null_ls = require 'null_ls'
+      local null_ls = require('null_ls')
       local sources = {
         require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
         require 'none-ls.formatting.ruff_format',
-        none_ls.builtins.formatting.prettier.with { filetypes = {'json', 'yaml', 'markdown'} },
+        none_ls.builtins.formatting.prettier.with { filetypes = { 'json', 'yaml', 'markdown' } },
         none_ls.builtins.formatting.shfmt.with { args = { '-i', '4' } },
       }
 
@@ -53,19 +64,20 @@ return {
           end
         end,
       }
+      vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Neovim Builtin Lsp-Formatting" })
     end,
   },
 
--- test new blink
--- { import = "nvchad.blink.lazyspec" },
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
 
--- {
--- 	"nvim-treesitter/nvim-treesitter",
--- 	opts = {
--- 		ensure_installed = {
--- 			"vim", "lua", "vimdoc",
---      "html", "css"
--- 		},
--- 	},
--- },
+  -- {
+  -- 	"nvim-treesitter/nvim-treesitter",
+  -- 	opts = {
+  -- 		ensure_installed = {
+  -- 			"vim", "lua", "vimdoc",
+  --      "html", "css"
+  -- 		},
+  -- 	},
+  -- },
 }

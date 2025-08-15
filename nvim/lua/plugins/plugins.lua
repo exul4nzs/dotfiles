@@ -6,16 +6,7 @@ return {
     ft = { "markdown", "codecompanion" },
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' },
   },
-  { 'folke/neodev.nvim', event = "VeryLazy", opts = {} },
-  {
-    "chentoast/marks.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("marks").setup({
-        default_mappings = true,
-      })
-    end,
-  },
+  -- { 'folke/neodev.nvim', event = "VeryLazy", opts = {} },
 
   { 'brenoprata10/nvim-highlight-colors' },
   { "tpope/vim-projectionist" },
@@ -171,29 +162,33 @@ return {
       conform.setup({
         formatters_by_ft = {
           lua = { "stylua" },
+<<<<<<< HEAD
           svelte = { { "prettierd", "prettier", stop_after_first = true } },
           astro = { { "prettierd", "prettier", stop_after_first = true } },
+=======
+          svelte = { "prettier" },
+          astro = { "prettier" },
+>>>>>>> ed27cc7 (180 nvim plugins and autocomplete and hist for zsh)
           cs = { "csharpier" },
-          -- javascript = { { "prettierd", "prettier", stop_after_first = true } },
-          -- typescript = { { "prettierd", "prettier", stop_after_first = true } },
-          -- javascriptreact = { { "prettierd", "prettier", stop_after_first = true } },
-          -- typescriptreact = { { "prettierd", "prettier", stop_after_first = true } },
-          -- json = { { "prettierd", "prettier", stop_after_first = true } },
           javascript = { "biome" },
           typescript = { "biome" },
           javascriptreact = { "biome" },
           typescriptreact = { "biome" },
           json = { "biome" },
+<<<<<<< HEAD
           javascript = { { "prettierd", "prettier", stop_after_first = true } },
           typescript = { { "prettierd", "prettier", stop_after_first = true } },
           javascriptreact = { { "prettierd", "prettier", stop_after_first = true } },
           typescriptreact = { { "prettierd", "prettier", stop_after_first = true } },
           json = { { "prettierd", "prettier", stop_after_first = true } },
           graphql = { { "prettierd", "prettier", stop_after_first = true } },
+=======
+          graphql = { "prettier" },
+>>>>>>> ed27cc7 (180 nvim plugins and autocomplete and hist for zsh)
           java = { "google-java-format" },
           kotlin = { "ktlint" },
           ruby = { "standardrb" },
-          markdown = { { "prettierd", "prettier", stop_after_first = true } },
+          markdown = { "prettier" },
           erb = { "htmlbeautifier" },
           html = { "htmlbeautifier" },
           bash = { "beautysh" },
@@ -201,8 +196,8 @@ return {
           rust = { "rustfmt" },
           yaml = { "yamlfix" },
           toml = { "taplo" },
-          css = { { "prettierd", "prettier", stop_after_first = true } },
-          scss = { { "prettierd", "prettier", stop_after_first = true } },
+          css = { "prettier" },
+          scss = { "prettier" },
           sh = { "shellcheck" },
           go = { "gofmt" },
           xml = { "xmllint" },
@@ -218,7 +213,6 @@ return {
       vim.keymap.set({ "n", "v" }, "<leader>l", function()
         conform.format({
           lsp_fallback = true,
-          async = false,
           timeout_ms = 1000,
         })
       end, { desc = "Format file or range (in visual mode)" })
@@ -238,30 +232,6 @@ return {
     config = function()
       require("illuminate")
     end,
-  },
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {
-      jump = {
-        autojump = true,
-      },
-      modes = {
-        char = {
-          jump_labels = true,
-          multi_line = false,
-        }
-      }
-    },
-    -- stylua: ignore
-    keys = {
-      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-      { "S",     mode = { "n" },           function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
-    },
   },
   {
     "pwntester/octo.nvim",
@@ -454,6 +424,9 @@ return {
       "jfpedroza/neotest-elixir",
       "weilbith/neotest-gradle",
       "nvim-neotest/neotest-go",
+
+      "lawrence-laz/neotest-zig",
+
     },
     opts = {
       adapters = {
@@ -973,7 +946,8 @@ return {
     opts = {},
     -- stylua: ignore
     keys = {
-      { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+      { "<leader>qs", function() require("persistence").save() end, desc = "Save Session"},
+      { "<leader>qr", function() require("persistence").load() end, desc = "Restore Session" },
       { "<leader>qS", function() require("persistence").select() end,desc = "Select Session" },
       { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
       { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
@@ -1205,175 +1179,9 @@ return {
   },
 
   {
-    "monaqa/dial.nvim",
-    recommended = true,
-    desc = "Increment and decrement numbers, dates, and more",
-    -- stylua: ignore
-    keys = {
-      { "<C-a>", function() return M.dial(true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
-      { "<C-x>", function() return M.dial(false) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
-      { "g<C-a>", function() return M.dial(true, true) end, expr = true, desc = "Increment", mode = {"n", "v"} },
-      { "g<C-x>", function() return M.dial(false, true) end, expr = true, desc = "Decrement", mode = {"n", "v"} },
-    },
-    opts = function()
-      local augend = require("dial.augend")
-
-      local logical_alias = augend.constant.new({
-        elements = { "&&", "||" },
-        word = false,
-        cyclic = true,
-      })
-
-      local ordinal_numbers = augend.constant.new({
-        -- elements through which we cycle. When we increment, we go down
-        -- On decrement we go up
-        elements = {
-          "first",
-          "second",
-          "third",
-          "fourth",
-          "fifth",
-          "sixth",
-          "seventh",
-          "eighth",
-          "ninth",
-          "tenth",
-        },
-        -- if true, it only matches strings with word boundary. firstDate wouldn't work for example
-        word = false,
-        -- do we cycle back and forth (tenth to first on increment, first to tenth on decrement).
-        -- Otherwise nothing will happen when there are no further values
-        cyclic = true,
-      })
-
-      local weekdays = augend.constant.new({
-        elements = {
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        },
-        word = true,
-        cyclic = true,
-      })
-
-      local months = augend.constant.new({
-        elements = {
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        },
-        word = true,
-        cyclic = true,
-      })
-
-      local capitalized_boolean = augend.constant.new({
-        elements = {
-          "True",
-          "False",
-        },
-        word = true,
-        cyclic = true,
-      })
-
-      return {
-        dials_by_ft = {
-          css = "css",
-          vue = "vue",
-          javascript = "typescript",
-          typescript = "typescript",
-          typescriptreact = "typescript",
-          javascriptreact = "typescript",
-          json = "json",
-          lua = "lua",
-          markdown = "markdown",
-          sass = "css",
-          scss = "css",
-          python = "python",
-        },
-        groups = {
-          default = {
-            augend.integer.alias.decimal, -- nonnegative decimal number (0, 1, 2, 3, ...)
-            augend.integer.alias.decimal_int, -- nonnegative and negative decimal number
-            augend.integer.alias.hex, -- nonnegative hex number  (0x01, 0x1a1f, etc.)
-            augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
-            ordinal_numbers,
-            weekdays,
-            months,
-            capitalized_boolean,
-            augend.constant.alias.bool, -- boolean value (true <-> false)
-            logical_alias,
-          },
-          vue = {
-            augend.constant.new({ elements = { "let", "const" } }),
-            augend.hexcolor.new({ case = "lower" }),
-            augend.hexcolor.new({ case = "upper" }),
-          },
-          typescript = {
-            augend.constant.new({ elements = { "let", "const" } }),
-          },
-          css = {
-            augend.hexcolor.new({
-              case = "lower",
-            }),
-            augend.hexcolor.new({
-              case = "upper",
-            }),
-          },
-          markdown = {
-            augend.constant.new({
-              elements = { "[ ]", "[x]" },
-              word = false,
-              cyclic = true,
-            }),
-            augend.misc.alias.markdown_header,
-          },
-          json = {
-            augend.semver.alias.semver, -- versioning (v1.1.2)
-          },
-          lua = {
-            augend.constant.new({
-              elements = { "and", "or" },
-              word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
-              cyclic = true, -- "or" is incremented into "and".
-            }),
-          },
-          python = {
-            augend.constant.new({
-              elements = { "and", "or" },
-            }),
-          },
-        },
-      }
-    end,
-    config = function(_, opts)
-      -- copy defaults to each group
-      for name, group in pairs(opts.groups) do
-        if name ~= "default" then
-          vim.list_extend(group, opts.groups.default)
-        end
-      end
-      require("dial.config").augends:register_group(opts.groups)
-      vim.g.dials_by_ft = opts.dials_by_ft
-    end,
-  },
-  {
     "ggandor/flit.nvim",
     enabled = true,
     keys = function()
-      ---@type LazyKeysSpec[]
       local ret = {}
       for _, key in ipairs({ "f", "F", "t", "T" }) do
         ret[#ret + 1] = { key, mode = { "n", "x", "o" } }
@@ -1382,25 +1190,62 @@ return {
     end,
     opts = { labeled_modes = "nx" },
   },
+
+  -- Leap.nvim
   {
     "ggandor/leap.nvim",
     enabled = true,
     keys = {
-      { "s", mode = { "n", "x", "o" }, desc = "Leap Forward to" },
-      { "S", mode = { "n", "x", "o" }, desc = "Leap Backward to" },
-      { "gs", mode = { "n", "x", "o" }, desc = "Leap from Windows" },
+      {
+        "s",
+        mode = { "n" },
+        function() require("leap").leap { forward = true } end,
+        desc = "Leap Forward to",
+      },
+      {
+        "S",
+        mode = { "n" },
+        function() require("leap").leap { backward = true } end,
+        desc = "Leap Backward to",
+      },
+      {
+        "gs",
+        mode = { "n" },
+        function()
+          local leap = require("leap")
+          leap.leap { target_windows = require("leap.user").get_focusable_windows() }
+        end,
+        desc = "Leap from Windows",
+      },
     },
     config = function(_, opts)
       local leap = require("leap")
       for k, v in pairs(opts) do
         leap.opts[k] = v
       end
-      leap.add_default_mappings(true)
-      vim.keymap.del({ "x", "o" }, "x")
-      vim.keymap.del({ "x", "o" }, "X")
+      leap.add_default_mappings(false)
     end,
   },
   { "tpope/vim-repeat", event = "VeryLazy" },
+  {
+    "folke/flash.nvim",
+    ---@type Flash.Config
+    event = "VeryLazy",
+    opts = {
+      jump = { autojump = true },
+      modes = {
+        char = { jump_labels = true, multi_line = false },
+      },
+    },
+    keys = {
+      -- Visual + Operator modes only (no normal mode conflict with Leap)
+      { "s", mode = { "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<C-s>", mode = { "n","c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
   {
     "echasnovski/mini.move",
     event = "VeryLazy",
@@ -1419,9 +1264,9 @@ return {
     end,
     opts = {}
   },
-
   { "mattn/emmet-vim" },
   { "jose-elias-alvarez/typescript.nvim" },
+<<<<<<< HEAD
   -- {
   --   "mrcjkb/rustaceanvim",
   --   version = '^6',
@@ -1432,4 +1277,88 @@ return {
   --     },
   --   },
   -- },
+=======
+  {
+    "ziglang/zig.vim",  -- Syntax highlighting
+    ft = "zig",
+  },
+  {
+    "lawrence-laz/neotest-zig",
+  },
+  { "Vimjas/vim-python-pep8-indent" },
+  { "yioneko/nvim-vtsls" },
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+      "mfussenegger/nvim-dap",
+      "leoluz/nvim-dap-go",
+    },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()',
+    config = function()
+      require("go").setup({
+        gofmt = "gofumpt", -- use gofumpt
+        lsp_gofumpt = true,
+        dap_debug = true, -- enable nvim-dap-go
+      })
+
+      -- Autoformat before save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*.go",
+        callback = function()
+          require("go.format").goimports() -- or gofmt()
+        end,
+        group = vim.api.nvim_create_augroup("GoFormat", {}),
+      })
+
+      -- Load dap-go after go.nvim
+      require("dap-go").setup()
+    end,
+  },
+  {
+    "olexsmir/gopher.nvim", -- Go-specific tools
+    ft = "go",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("gopher").setup({
+        commands = {
+          go = "go",
+          gomodifytags = "gomodifytags",
+          gotests = "gotests",
+          impl = "impl",
+        },
+      })
+      -- Keymaps that'll make you #180 happy
+      vim.keymap.set("n", "<leader>gt", "<cmd>GoTagAdd json<cr>", { desc = "[G]o [T]ag (json)" })
+      vim.keymap.set("n", "<leader>gT", "<cmd>GoTagRemove json<cr>", { desc = "[G]o [T]ag remove" })
+      vim.keymap.set("n", "<leader>gi", "<cmd>GoImpl<cr>", { desc = "[G]o [I]mplement" })
+    end
+  },
+
+  {
+    "Pocco81/true-zen.nvim",
+    config = function()
+      require("true-zen").setup({
+        -- Optional: Customize TrueZen's behavior (minimal setup works fine)
+        modes = {
+          ataraxis = { -- Distraction-free mode (used by Neorg presenter)
+            padding = {
+              left = 0.15, -- Adjust padding if needed
+            },
+          },
+        },
+      })
+    end,
+  },
+  {
+    "nvim-neorg/neorg-telescope", -- Add this dependency
+    dependencies = {
+      "nvim-neorg/neorg",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
+>>>>>>> ed27cc7 (180 nvim plugins and autocomplete and hist for zsh)
 }

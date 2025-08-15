@@ -14,17 +14,19 @@ return {
     { "williamboman/mason-lspconfig.nvim" }, -- Optional
 
     -- Autocompletion
-    { "hrsh7th/nvim-cmp" }, -- Required
-    { "hrsh7th/cmp-nvim-lsp" }, -- Required
-    { "L3MON4D3/LuaSnip" }, -- Required
+    { "saghen/blink.nvim" }, -- Primary completion engine
+    { "hrsh7th/nvim-cmp" }, -- Only for cmdline completion
+    { "hrsh7th/cmp-cmdline" }, -- Cmdline source
+    { "L3MON4D3/LuaSnip" }, -- Required for snippets
     { "rafamadriz/friendly-snippets" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-path" },
-    { "hrsh7th/cmp-cmdline" },
-    { "saadparwaiz1/cmp_luasnip" },
-    { "hrsh7th/cmp-emoji" },
   },
   config = function()
+    -- Force-clear any existing signs
+    vim.api.nvim_create_autocmd('VimEnter', {
+      callback = function() vim.fn.sign_unplace('*') end,
+      once = true,
+    })
+
     local lsp = require("lsp-zero")
 
     lsp.on_attach(function(client, bufnr)
@@ -75,58 +77,52 @@ return {
       },
     })
 
-    local cmp_action = require("lsp-zero").cmp_action()
-    local cmp = require("cmp")
-    local cmp_select = { behavior = cmp.SelectBehavior.Select }
+    -- Set up blink.nvim for insert mode completion
+    require('blink').setup({
+      snippet_engine = 'luasnip',
+      sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip', keyword_length = 2 },
+        { name = 'buffer', keyword_length = 3 },
+        { name = 'path' },
+        { name = 'emoji' },
+      },
+      mapping = {
+        ['<C-p>'] = 'prev_item',
+        ['<C-n>'] = 'next_item',
+        ['<C-y>'] = 'confirm',
+        ["<CR>"] = 'confirm',
+        ['<C-Space>'] = 'complete',
+        ['<Tab>'] = 'supertab',
+        ['<S-Tab>'] = 'shift_supertab',
+      },
+    })
 
-    require("luasnip.loaders.from_vscode").lazy_load()
-
-    -- `/` cmdline setup.
+    -- Minimal nvim-cmp setup JUST for command-line completion
+    local cmp = require('cmp')
+    cmp.setup({ enabled = false }) -- Disable everywhere by default
+    -- `/` cmdline setup
     cmp.setup.cmdline("/", {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
-        { name = "buffer" },
-      },
+        { name = "buffer" }
+      }
     })
 
-    -- `:` cmdline setup.
+    -- `:` cmdline setup
     cmp.setup.cmdline(":", {
       mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-          {
-            name = "cmdline",
-            option = {
-              ignore_cmds = { "Man", "!" },
-            },
-          },
-        }),
+      sources = cmp.config.sources(
+        { { name = "path" } },
+        { { name = "cmdline" } }
+      )
     })
 
-    cmp.setup({
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-        end,
-      },
-      sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer", keyword_length = 3 },
-        { name = "path" },
-        { name = "emoji" },
-      },
-      mapping = cmp.mapping.preset.insert({
-        ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-        ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-        ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-        ["<Tab>"] = cmp_action.luasnip_supertab(),
-        ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-      }),
-    })
+    -- Snippet setup
+    require("luasnip.loaders.from_vscode").lazy_load()
+    require("lspconfig").ruff.setup({
+      on_attach = function(client, bufnr)
+        client.server_capabilities.completionProvider = nil
+      end, })
   end,
 }

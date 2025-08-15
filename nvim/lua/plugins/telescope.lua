@@ -35,14 +35,14 @@ return {
     vim.keymap.set("n", "<leader>gc", builtin.git_commits, { desc = "Search Git Commits" })
     vim.keymap.set("n", "<leader>gb", builtin.git_bcommits, { desc = "Search Git Commits for Buffer" })
     vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Find Keymaps" })
-    vim.keymap.set("n", "<leader>/", function()
-      -- You can pass additional configuration to telescope to change theme, layout, etc.
-      require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-        winblend = 10,
-        previewer = false,
-        layout_config = { width = 0.7 },
-      }))
-    end, { desc = "[/] Fuzzily search in current buffer" })
+    -- vim.keymap.set("n", "<leader>/", function()
+    --   -- You can pass additional configuration to telescope to change theme, layout, etc.
+    --   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+    --     winblend = 10,
+    --     previewer = false,
+    --     layout_config = { width = 0.7 },
+    --   }))
+    -- end, { desc = "[/] Fuzzily search in current buffer" })
 
     local telescope = require("telescope")
     local telescopeConfig = require("telescope.config")
@@ -75,6 +75,8 @@ return {
 
     telescope.setup({
       defaults = {
+        prompt_prefix = "❯ ",  -- Your fancy arrow
+        selection_caret = "❯ ", -- Also changes the selection indicator
         -- `hidden = true` is not supported in text grep commands.
         vimgrep_arguments = vimgrep_arguments,
         path_display = { "truncate" },
