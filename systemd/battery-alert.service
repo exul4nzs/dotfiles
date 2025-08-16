@@ -1,0 +1,6 @@
+[Unit]
+Description=Battery Low Alert Service
+
+[Service]
+Type=oneshot
+ExecStart=/home/exul4nzs/.battery_alert.sh
