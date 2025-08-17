@@ -1,17 +1,22 @@
-<<<<<<< HEAD
 ---@type ChadrcConfig
-=======
--- ~/.config/nvim/lua/custom/chadrc.lua
->>>>>>> 3c015ab (180 plugins)
 local M = {}
 
 M.base46 = {
-  theme = "chadracula-evondev"
+  theme = "chadracula-evondev",
+
+  --🔧 Enable transparency 
+  -- transparency = true,
   -- hl_override = {
-  --   -- ONLY change namespaces (like Control.Exception)
-  --   ["@namespace"] = { fg = "#7dc4e4", italic = true },  -- Soft cyan
-  --   -- Preserve all other Chadracula colors
-  -- }
+  -- 	Comment = { italic = true },
+  -- 	["@comment"] = { italic = true },
+  -- },
 }
 
+-- M.nvdash = { load_on_startup = true }
+-- M.ui = {
+--   tabufline = {
+--   },
+-- }
+
 return M
+

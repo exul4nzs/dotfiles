@@ -3,18 +3,18 @@ return {
   event = "VeryLazy",
   opts = {
     signs = {
-      add          = { text = "" }, -- nf-md-plus
-      change       = { text = "" }, -- nf-oct-dot_fill
-      delete       = { text = "" }, -- nf-md-minus
-      topdelete    = { text = "" },
+      add = { text = "" }, -- nf-md-plus
+      change = { text = "" }, -- nf-oct-dot_fill
+      delete = { text = "" }, -- nf-md-minus
+      topdelete = { text = "" },
       changedelete = { text = "󰍷" }, -- nf-md-arrow_u_left_bottom_bold
-      untracked    = { text = "" },
+      untracked = { text = "" },
     },
     signs_staged = {
-      add          = { text = "" },
-      change       = { text = "" },
-      delete       = { text = "" },
-      topdelete    = { text = "" },
+      add = { text = "" },
+      change = { text = "" },
+      delete = { text = "" },
+      topdelete = { text = "" },
       changedelete = { text = "󰍷" },
     },
     on_attach = function(buffer)

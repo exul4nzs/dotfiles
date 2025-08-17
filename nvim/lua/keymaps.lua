@@ -4,7 +4,7 @@ local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Oil
-keymap("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+keymap("n", "<leader>-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 
 -- Jump between markdown headers
 keymap("n", "gj", [[/^##\+ .*<CR>]], opts)
@@ -391,12 +391,12 @@ vim.api.nvim_set_keymap(
   "n",
   "<S-F6>",
   "<cmd>CompilerStop<cr>" -- (Optional, to dispose all tasks before redo)
-    .. "<cmd>CompilerRedo<cr>",
+  .. "<cmd>CompilerRedo<cr>",
   { noremap = true, silent = true }
 )
 
 -- Toggle compiler results
 vim.api.nvim_set_keymap("n", "<S-F7>", "<cmd>CompilerToggleResults<cr>", { noremap = true, silent = true })
 
-keymap({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>") -- Save File in normal, insert and visual mode
+keymap({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")    -- Save File in normal, insert and visual mode
 keymap({ "n", "i", "v" }, "<M-S-q>", "<cmd> q! <cr>") -- Quit File Override

@@ -27,8 +27,8 @@ vim.opt.conceallevel = 2
 vim.opt.termguicolors = true
 vim.opt.guicursor = table.concat({
   "n-v-c-sm:block", -- Normal mode: block cursor
-  "i-ci-ve:ver25", -- Insert mode: vertical bar
-  "r-cr-o:hor20", -- Replace mode: underline
+  "i-ci-ve:ver25",  -- Insert mode: vertical bar
+  "r-cr-o:hor20",   -- Replace mode: underline
   "t:block-blinkon500",
   -- "a:blinkwait700-blinkoff400-blinkon250", -- Blink settings
 }, ",")
@@ -40,6 +40,6 @@ vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 -- vim.opt.incommand = "split"
-vim.opt.mouse = "a"
+vim.opt.mouse = ""
 vim.opt.updatetime = 8000
 vim.opt.nrformats = "bin,hex,octal,alpha"

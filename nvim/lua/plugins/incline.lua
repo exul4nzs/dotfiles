@@ -37,6 +37,5 @@ return {
       incline.refresh() -- force redraw
     end, { desc = "Toggle Incline" })
   end,
-  event = 'VeryLazy',
+  enabled = false,
 }
-

@@ -14,12 +14,12 @@ return {
       "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
       { desc = "Live Grep" }
     )
-    vim.keymap.set("n","<leader>ec", function()
+    vim.keymap.set("n", "<leader>ec", function()
       require("telescope.builtin").find_files({
-        cwd = vim.fn.stdpath("config") ,
+        cwd = vim.fn.stdpath("config"),
         prompt_title = "Edit Neovim Config"
       })
-    end , { desc = "Edit Neovim Config" })
+    end, { desc = "Edit Neovim Config" })
     vim.keymap.set(
       "n",
       "<leader>fc",
@@ -75,7 +75,7 @@ return {
 
     telescope.setup({
       defaults = {
-        prompt_prefix = "❯ ",  -- Your fancy arrow
+        prompt_prefix = "❯ ", -- Your fancy arrow
         selection_caret = "❯ ", -- Also changes the selection indicator
         -- `hidden = true` is not supported in text grep commands.
         vimgrep_arguments = vimgrep_arguments,
@@ -85,7 +85,7 @@ return {
           prompt_position = "top",
           width = 0.99,
           height = 0.99,
-          preview_width = 0.4,
+          preview_width = 0.56,
           preview_cutoff = 120,
         },
 
@@ -98,13 +98,13 @@ return {
             ["<C-h>"] = function(prompt_bufnr)
               local previewer = require('telescope.actions.state').get_current_picker(prompt_bufnr).previewer
               if previewer and previewer.scroll_horizontal then
-                previewer:scroll_horizontal(-4)  -- Scroll left
+                previewer:scroll_horizontal(-4) -- Scroll left
               end
             end,
             ["<C-l>"] = function(prompt_bufnr)
               local previewer = require('telescope.actions.state').get_current_picker(prompt_bufnr).previewer
               if previewer and previewer.scroll_horizontal then
-                previewer:scroll_horizontal(4)  -- Scroll right
+                previewer:scroll_horizontal(4) -- Scroll right
               end
             end,
           },

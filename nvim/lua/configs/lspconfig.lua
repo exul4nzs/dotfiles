@@ -12,6 +12,7 @@ vim.diagnostic.config {
   virtual_text = false, -- Keep IDE-like inline messages
   underline = true, -- Keep underlines
   update_in_insert = false, -- Avoid flickering while typing
+  severity_sort = true
 }
 
 -- Optional: Colorize icons
@@ -22,13 +23,24 @@ vim.cmd [[
   highlight DiagnosticSignHint  guifg=#a9a1e1 guibg=NONE
 ]]
 
- -- require("nvchad.configs.lspconfig").defaults()
+-- require("nvchad.configs.lspconfig").defaults()
 
 local on_attach = require("nvchad.configs.lspconfig").on_attach
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 local servers = {
+
+  asm_lsp = {
+    cmd = { "asm-lsp" },
+    ft = { "asm", "nasm", "gas" },
+    root_dir = function(fname)
+      return require("lspconfig.util").root_pattern(".git")(fname)
+          or vim.fn.getcwd()
+    end,
+    settings = {},
+  },
+
   omnisharp = {
     handlers = {
       ["textDocument/definition"] = function(...)
@@ -55,7 +67,9 @@ local servers = {
       },
     },
   },
+
   intelephense = {},
+
   tailwindcss = {
     -- exclude a filetype from the default_config
     filetypes_exclude = { "markdown" },
@@ -64,6 +78,7 @@ local servers = {
     -- to fully override the default_config, change the below
     -- filetypes = {}
   },
+
   helm_ls = {},
   vhdl_ls = {},
   ruff = {},
@@ -105,6 +120,7 @@ local servers = {
       },
     },
   },
+
   ruby_lsp = {
     enabled = lsp == "ruby_lsp",
   },
@@ -120,10 +136,12 @@ local servers = {
   standardrb = {
     enabled = formatter == "standardrb",
   },
+
   angularls = {},
   cssls = {},
   jdtls = {},
   ts_ls = {},
+
   pylsp = {
     settings = {
       pylsp = {
@@ -152,6 +170,7 @@ local servers = {
       },
     },
   },
+
   clangd = {
     keys = {
       { "<leader>ch", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
@@ -205,7 +224,7 @@ local servers = {
 -- Initialize each LSP server
 for server_name, server_config in pairs(servers) do
   lspconfig[server_name].setup {
-    on_attach = on_attach, -- NvChad's default on_attach
+    on_attach = on_attach,       -- NvChad's default on_attach
     capabilities = capabilities, -- NvChad's default capabilities
     settings = server_config.settings or nil,
     cmd = server_config.cmd or nil,
@@ -214,76 +233,76 @@ for server_name, server_config in pairs(servers) do
 end
 -- read :h vim.lsp.config for changing options of lsp servers
 
-setup = {
-  hls = function()
-    return true
-  end,
-  gopls = function(_, opts)
-    -- workaround for gopls not supporting semanticTokensProvider
-    -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-    LazyVim.lsp.on_attach(function(client, _)
-      if not client.server_capabilities.semanticTokensProvider then
-        local semantic = client.config.capabilities.textDocument.semanticTokens
-        client.server_capabilities.semanticTokensProvider = {
-          full = true,
-          legend = {
-            tokenTypes = semantic.tokenTypes,
-            tokenModifiers = semantic.tokenModifiers,
-          },
-          range = true,
-        }
-      end
-    end, "gopls")
-    -- end workaround
-  end,
-  angularls = function()
-    LazyVim.lsp.on_attach(function(client)
-      --HACK: disable angular renaming capability due to duplicate rename popping up
-      client.server_capabilities.renameProvider = false
-    end, "angularls")
-  end,
-  clangd = function(_, opts)
-    local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
-    require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
-    return false
-  end,
-  jdtls = function()
-    return true -- avoid duplicate servers
-  end,
-  tailwindcss = function(_, opts)
-    local tw = LazyVim.lsp.get_raw_config("tailwindcss")
-    opts.filetypes = opts.filetypes or {}
-
-    -- Add default filetypes
-    vim.list_extend(opts.filetypes, tw.default_config.filetypes)
-
-    -- Remove excluded filetypes
-    --- @param ft string
-    opts.filetypes = vim.tbl_filter(function(ft)
-      return not vim.tbl_contains(opts.filetypes_exclude or {}, ft)
-    end, opts.filetypes)
-
-    -- Additional settings for Phoenix projects
-    opts.settings = {
-      tailwindCSS = {
-        includeLanguages = {
-          elixir = "html-eex",
-          eelixir = "html-eex",
-          heex = "html-eex",
-        },
-      },
-    }
-
-    -- Add additional filetypes
-    vim.list_extend(opts.filetypes, opts.filetypes_include or {})
-  end,
-  yamlls = function()
-    LazyVim.lsp.on_attach(function(client, buffer)
-      if vim.bo[buffer].filetype == "helm" then
-        vim.schedule(function()
-          vim.cmd("LspStop ++force yamlls")
-        end)
-      end
-    end, "yamlls")
-  end,
-}
+-- setup = {
+--   hls = function()
+--     return true
+--   end,
+--   gopls = function(_, opts)
+--     -- workaround for gopls not supporting semanticTokensProvider
+--     -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+--     LazyVim.lsp.on_attach(function(client, _)
+--       if not client.server_capabilities.semanticTokensProvider then
+--         local semantic = client.config.capabilities.textDocument.semanticTokens
+--         client.server_capabilities.semanticTokensProvider = {
+--           full = true,
+--           legend = {
+--             tokenTypes = semantic.tokenTypes,
+--             tokenModifiers = semantic.tokenModifiers,
+--           },
+--           range = true,
+--         }
+--       end
+--     end, "gopls")
+--     -- end workaround
+--   end,
+--   angularls = function()
+--     LazyVim.lsp.on_attach(function(client)
+--       --HACK: disable angular renaming capability due to duplicate rename popping up
+--       client.server_capabilities.renameProvider = false
+--     end, "angularls")
+--   end,
+--   clangd = function(_, opts)
+--     local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
+--     require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts }))
+--     return false
+--   end,
+--   jdtls = function()
+--     return true -- avoid duplicate servers
+--   end,
+--   tailwindcss = function(_, opts)
+--     local tw = LazyVim.lsp.get_raw_config("tailwindcss")
+--     opts.filetypes = opts.filetypes or {}
+--
+--     -- Add default filetypes
+--     vim.list_extend(opts.filetypes, tw.default_config.filetypes)
+--
+--     -- Remove excluded filetypes
+--     --- @param ft string
+--     opts.filetypes = vim.tbl_filter(function(ft)
+--       return not vim.tbl_contains(opts.filetypes_exclude or {}, ft)
+--     end, opts.filetypes)
+--
+--     -- Additional settings for Phoenix projects
+--     opts.settings = {
+--       tailwindCSS = {
+--         includeLanguages = {
+--           elixir = "html-eex",
+--           eelixir = "html-eex",
+--           heex = "html-eex",
+--         },
+--       },
+--     }
+--
+--     -- Add additional filetypes
+--     vim.list_extend(opts.filetypes, opts.filetypes_include or {})
+--   end,
+--   yamlls = function()
+--     LazyVim.lsp.on_attach(function(client, buffer)
+--       if vim.bo[buffer].filetype == "helm" then
+--         vim.schedule(function()
+--           vim.cmd("LspStop ++force yamlls")
+--         end)
+--       end
+--     end, "yamlls")
+--   end,
+-- }
