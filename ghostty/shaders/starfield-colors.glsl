@@ -5,7 +5,7 @@ const float repeats = 30.;
 const float layers = 21.;
 
 // Speed control parameter (1.0 = original speed, 0.8 = 20% slower)
-const float speedFactor = 0.7;
+const float speedFactor = 0.44;
 
 // star colours
 const vec3 blue = vec3(51.,64.,195.)/255.;
