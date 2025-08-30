@@ -3,6 +3,7 @@ return {
   version = "*", -- Use the latest tagged version
   opts = {},     -- This causes the plugin setup function to be called
   keys = {
+
     {
       "<M-C-j>",
       "<Cmd>MultipleCursorsAddDown<CR>",
