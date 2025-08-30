@@ -43,3 +43,4 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.mouse = ""
 vim.opt.updatetime = 8000
 vim.opt.nrformats = "bin,hex,octal,alpha"
+vim.g.python3_host_prog = "/usr/bin/python3"

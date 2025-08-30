@@ -95,18 +95,6 @@ return {
         mappings = {
           n = {
             ["<C-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
-            ["<C-h>"] = function(prompt_bufnr)
-              local previewer = require('telescope.actions.state').get_current_picker(prompt_bufnr).previewer
-              if previewer and previewer.scroll_horizontal then
-                previewer:scroll_horizontal(-4) -- Scroll left
-              end
-            end,
-            ["<C-l>"] = function(prompt_bufnr)
-              local previewer = require('telescope.actions.state').get_current_picker(prompt_bufnr).previewer
-              if previewer and previewer.scroll_horizontal then
-                previewer:scroll_horizontal(4) -- Scroll right
-              end
-            end,
           },
           i = {
             ["<C-j>"] = actions.cycle_history_next,

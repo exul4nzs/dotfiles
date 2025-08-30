@@ -1,11 +1,11 @@
 return {
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    event = "VeryLazy",
-    opts = {},
-    ft = { "markdown", "codecompanion" },
-    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
-  },
+  -- {
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  --   ft = { "markdown", "codecompanion" },
+  --   dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
+  -- },
   -- { 'folke/neodev.nvim', event = "VeryLazy", opts = {} },
 
   { "brenoprata10/nvim-highlight-colors" },
@@ -179,7 +179,7 @@ return {
           javascriptreact = { "biome" },
           typescriptreact = { "biome" },
           json = { "biome" },
-          java = { "google-java-format" },
+          java = { "clang-format" },
           vue = { "prettier" },
           graphql = { "prettier" },
           php = { "php_cs_fixer" },
@@ -200,6 +200,7 @@ return {
           bash = { "beautysh" },
           zsh = { "beautysh" },
           ruby = { "rubocop" },
+          r = { "air" },
           go = { "gofmt", "goimports" },
           xml = { "xmllint" },
         },
@@ -401,7 +402,10 @@ return {
       vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Fugitive Panel" })
     end,
   },
-  { "tpope/vim-repeat",                        event = "VeryLazy" },
+  {
+    "tpope/vim-repeat",
+    event = "VeryLazy",
+  },
   {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
@@ -1200,22 +1204,6 @@ return {
     enabled = true,
     keys = {
       {
-        "s",
-        mode = { "n" },
-        function()
-          require("leap").leap { forward = true }
-        end,
-        desc = "Leap Forward to",
-      },
-      {
-        "S",
-        mode = { "n" },
-        function()
-          require("leap").leap { backward = true }
-        end,
-        desc = "Leap Backward to",
-      },
-      {
         "<M-s>",
         mode = { "n" },
         function()
@@ -1245,10 +1233,9 @@ return {
       },
     },
     keys = {
-      -- Visual + Operator modes only (no normal mode conflict with Leap)
       {
         "s",
-        mode = { "o" },
+        mode = { "n", "x", "o" },
         function()
           require("flash").jump()
         end,
@@ -1256,7 +1243,7 @@ return {
       },
       {
         "S",
-        mode = { "o" },
+        mode = { "n", "o" },
         function()
           require("flash").treesitter()
         end,
@@ -1393,5 +1380,12 @@ return {
 
   {
     "natebosch/vim-lsc",
+  },
+
+  {
+    "vlime/vlime",
+    config = function()
+      rtp = "vim/"
+    end,
   },
 }

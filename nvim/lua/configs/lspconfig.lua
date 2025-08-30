@@ -120,7 +120,7 @@ local servers = {
       },
     },
   },
-
+  air = {},
   ruby_lsp = {
     enabled = lsp == "ruby_lsp",
   },

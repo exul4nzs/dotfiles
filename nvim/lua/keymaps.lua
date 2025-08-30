@@ -34,11 +34,27 @@ keymap("n", "<leader>Wq", ":wqa<CR>", { desc = "Save and Quit All Files" })
 keymap("n", "<leader>Q", ":qa<CR>", { desc = "Quit All" })
 keymap("n", "<leader>Qq", ":q!<CR>", { desc = "Quit Without Saving" })
 
+-- Insert 2 spaces in Normal mode
+keymap("n", "<M-a>", "2i<Space><Esc>", { noremap = true, desc = "Insert 2 spaces" })
+
+-- Insert 2 spaces in Visual mode (will replace selected text with spaces)
+keymap("v", "<M-a>", "c<Esc>2i<Space><Esc>", { noremap = true, desc = "Replace selection with 2 spaces" })
+
 -- Nvdash-Snacks
 vim.api.nvim_create_user_command("Nvdash", function()
   require("snacks.dashboard").open()
 end, {})
 keymap("n", "<leader>Nv", ":Nvdash<CR>", { desc = "Open Neovim dashboard" })
+
+-- Molten keymap
+keymap("n", "<localleader>mi", ":MoltenInit<CR>", { silent = true, desc = "Initialize the plugin" })
+keymap("n", "<localleader>me", ":MoltenEvaluateOperator<CR>", { silent = true, desc = "run operator selection" })
+keymap("n", "<localleader>rl", ":MoltenEvaluateLine<CR>", { silent = true, desc = "evaluate line" })
+keymap("n", "<localleader>rr", ":MoltenReevaluateCell<CR>", { silent = true, desc = "re-evaluate cell" })
+keymap("v", "<localleader>r", ":<C-u>MoltenEvaluateVisual<CR>gv", { silent = true, desc = "evaluate visual selection" })
+keymap("n", "<localleader>rd", ":MoltenDelete<CR>", { silent = true, desc = "molten delete cell" })
+keymap("n", "<localleader>oh", ":MoltenHideOutput<CR>", { silent = true, desc = "hide output" })
+keymap("n", "<localleader>os", ":noautocmd MoltenEnterOutput<CR>", { silent = true, desc = "show/enter output" })
 
 -- Showkeys
 keymap("n", "<leader>Tk", "<cmd>ShowkeysToggle<cr>", { desc = "Toggle Show Keys" })
