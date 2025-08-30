@@ -1,8 +1,8 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+#Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 source /usr/share/cachyos-zsh-config/cachyos-config.zsh
@@ -54,7 +54,7 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza --color=always --icons --group-d
 
 # Faster alternative (no tree view)
 zstyle ':fzf-tab:*' fzf-preview \
-  'eza --color=always --icons --group-directories-first -1 $realpath'
+    'eza --color=always --icons --group-directories-first -1 $realpath'
 
 bindkey '^n' history-search-forward
 bindkey '^p' history-search-backward
@@ -77,17 +77,21 @@ alias ex=exit
 alias la=tree
 alias lg=lazygit
 alias cat=bat
+alias b=cat
 alias e=eza
-alias vim=nvim
+alias ee=eza -all
+# alias vim=nvim
 alias vi=vim
 alias viewhtml="xdg-open index.html"
 alias et="eza --tree --level=2 --long --icons --git"
 alias etr="eza --tree --level=2  --icons --git"
 alias nvim-up="nvim --headless -c 'Lazy sync' -c 'qa'"
+alias vlime='sbcl --load ~/.local/share/nvim/site/pack/packer/start/vlime/lisp/start-vlime.lisp'
 
 # Git
 alias gc="git commit -m"
-alias gca="git commit -a -m"
+alias gca="git commit -a"
+alias gcam="git commit -a -m"
 alias gpoh="git push origin HEAD"
 alias gpom="git push -u origin main"
 alias gpu="git pull origin"
@@ -121,8 +125,9 @@ alias ......="cd ../../../../.."
 export GOPATH='/usr/bin/go'
 export GOPATH="$HOME/Miscellaneous/go"
 export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$HOME/Miscellaneous/go/bin"
 
- # .Net
+# .Net
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Python-uv
@@ -133,7 +138,7 @@ alias nm="nmap -sC -sV -oN nmap"
 
 alias c="clear"
 alias ff="fastfetch"
-alias ac="arduino-cli" 
+alias ac="arduino-cli"
 alias cn="c && nvim"
 alias spacman="sudo pacman"
 alias nvz="nvim ~/.zshrc"
@@ -144,6 +149,7 @@ alias g++23="g++ -std=c++23 -Wall -Wextra"
 alias g++20="g++ -std=c++20 -Wall -Wextra"
 alias g++17="g++ -std=c++17 -Wall -Wextra"
 alias coursier="$HOME/.local/share/coursier/bin/coursier"
+alias restart="c && exec zsh"
 
 # K8S
 export KUBECONFIG=~/.kube/config
@@ -186,8 +192,16 @@ alias gr='~/go/src/github.com/tomnomnom/gf/gf'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
 alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
+
+# SCREEN RECORDING ALIASES (FFmpeg OG edition)
+alias rec='ffmpeg -f x11grab -s 1366x768 -i :0 -vf "scale=1024:-1" -c:v libx264 -preset ultrafast ~/Videos/rec_$(date +%s).mp4'
+alias rec-full='ffmpeg -f x11grab -s 1366x768 -i :0 -c:v libx264 -crf 23 ~/Videos/full_$(date +%s).mp4'
+alias rec-nvidia='ffmpeg -f x11grab -s 1366x768 -i :0 -c:v h264_nvenc -preset p4 -cq 23 ~/Videos/gpu_$(date +%s).mp4'
+alias rec-audio='ffmpeg -f x11grab -s 1366x768 -i :0 -f pulse -i default -c:v libx264 -c:a aac ~/Videos/with_audio_$(date +%s).mp4'
+
+# SELECT AREA RECORDING (requires xrectsel)
+alias rec-area='ffmpeg -f x11grab -video_size $(xrectsel) -i :0+$(xrectsel "%x %y") -c:v libx264 -preset ultrafast ~/Videos/area_$(date +%s).mp4'
 
 # Nix!
 export NIX_CONF_DIR=$HOME/.config/nix
@@ -195,19 +209,19 @@ export PATH=/run/current-system/sw/bin:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
 function ranger {
-	local IFS=$'\t\n'
-	local tempfile="$(mktemp -t tmp.XXXXXX)"
-	local ranger_cmd=(
-		command
-		ranger
-		--cmd="map Q chain shell echo %d > "$tempfile"; quitall"
-	)
+    local IFS=$'\t\n'
+    local tempfile="$(mktemp -t tmp.XXXXXX)"
+    local ranger_cmd=(
+        command
+        ranger
+        --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
 
-	${ranger_cmd[@]} "$@"
-	if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
-		cd -- "$(cat "$tempfile")" || return
-	fi
-	command rm -f -- "$tempfile" 2>/dev/null
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    command rm -f -- "$tempfile" 2>/dev/null
 }
 alias rr='ranger'
 
@@ -217,11 +231,11 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
- # Nix
- if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-	 . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
- fi
- # End Nix
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
 
 export XDG_CONFIG_HOME="/home/exul4nzs/.config"
 
@@ -238,32 +252,32 @@ ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
 ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 
 zvm_after_init() {
-  bindkey -M vicmd '^R' redo
-  autoload -Uz surround
-  zle -N delete-surround surround
-  zle -N add-surround surround
-  zle -N change-surround surround
-  bindkey -a cs change-surround
-  bindkey -a ds delete-surround
-  bindkey -a ys add-surround
-  bindkey -M visual s add-surround
+    bindkey -M vicmd '^R' redo
+    autoload -Uz surround
+    zle -N delete-surround surround
+    zle -N add-surround surround
+    zle -N change-surround surround
+    bindkey -a cs change-surround
+    bindkey -a ds delete-surround
+    bindkey -a ys add-surround
+    bindkey -M visual s add-surround
 }
 
 webinit() {
-  # Check if project name is provided
-  if [ -z "$1" ]; then
-    echo "Usage: webinit <project-name>"
-    return 1
-  fi
+    # Check if project name is provided
+    if [ -z "$1" ]; then
+        echo "Usage: webinit <project-name>"
+        return 1
+    fi
 
-  # Create folder structure
-  mkdir -p "$1"/{css,js,images} || {
-    echo "Error: Failed to create directories"
-    return 1
-  }
+    # Create folder structure
+    mkdir -p "$1"/{css,js,images} || {
+        echo "Error: Failed to create directories"
+        return 1
+    }
 
-  # Generate files
-  cat > "$1"/index.html << 'EOF'
+    # Generate files
+    cat > "$1"/index.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -279,8 +293,8 @@ webinit() {
 </html>
 EOF
 
-  # Add basic CSS
-  cat > "$1"/css/style.css << 'EOF'
+    # Add basic CSS
+    cat > "$1"/css/style.css << 'EOF'
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -290,13 +304,19 @@ body {
 }
 EOF
 
-  # Add basic JS
-  cat > "$1"/js/app.js << 'EOF'
+    # Add basic JS
+    cat > "$1"/js/app.js << 'EOF'
 console.log("Hello from ${1}!");
 EOF
 
-  # Success message
-  echo "✅ Web project '$1' created:"
-  tree "$1" -L 2
+    # Success message
+    echo "✅ Web project '$1' created:"
+    tree "$1" -L 2
 }
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export WINEPREFIX=$HOME/.wine-autocad
 
