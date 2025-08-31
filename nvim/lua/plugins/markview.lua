@@ -240,7 +240,7 @@ return {
       }
 
       -- Basic keybinding setup for LspUI
-      vim.keymap.set("n", "K", "<cmd>LspUI hover<CR>")
+      -- vim.keymap.set("n", "K", "<cmd>LspUI hover<CR>")
       vim.keymap.set("n", "gr", "<cmd>LspUI reference<CR>")
       vim.keymap.set("n", "gd", "<cmd>LspUI definition<CR>")
       vim.keymap.set("n", "gt", "<cmd>LspUI type_definition<CR>")

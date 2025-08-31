@@ -1368,4 +1368,14 @@ return {
       }
     end,
   },
+  {
+    "mawkler/refjump.nvim",
+    event = "LspAttach", -- Uncomment to lazy load
+    opts = {},
+  },
+  {
+    "Fildo7525/pretty_hover",
+    event = "LspAttach",
+    opts = {},
+  },
 }
