@@ -734,42 +734,6 @@ return {
     },
   },
   {
-    "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "ravitemer/mcphub.nvim",
-    },
-    config = function()
-      require("codecompanion").setup {
-        adapters = {
-          ollama = function()
-            return require("codecompanion.adapters").extend("ollama", {
-              schema = { model = { default = "qwen3" } },
-            })
-          end,
-        },
-        strategies = {
-          chat = { adapter = "ollama" },
-          inline = { adapter = "ollama" },
-        },
-        extensions = {
-          mcphub = {
-            callback = "mcphub.extensions.codecompanion",
-            opts = {
-              make_vars = true,
-              make_slash_commands = true,
-              show_result_in_chat = true,
-            },
-          },
-        },
-      }
-
-      vim.keymap.set({ "n", "v" }, "<leader>co", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
-      vim.keymap.set({ "n", "v" }, "<leader>ct", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
-      vim.keymap.set({ "v" }, "<leader>ca", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
-    end,
-  },
-  {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
@@ -1386,6 +1350,22 @@ return {
     "vlime/vlime",
     config = function()
       rtp = "vim/"
+    end,
+  },
+  {
+    "hinell/lsp-timeout.nvim",
+    dependencies = { "neovim/nvim-lspconfig" },
+  },
+  {
+    "roobert/surround-ui.nvim",
+    dependencies = {
+      "kylechui/nvim-surround",
+      "folke/which-key.nvim",
+    },
+    config = function()
+      require("surround-ui").setup {
+        root_key = "S",
+      }
     end,
   },
 }

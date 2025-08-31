@@ -1,6 +1,7 @@
 return { -- Highlight, edit, and navigate code
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
+  dependencies = { "OXY2DEV/markview.nvim" },
   opts = {
     ensure_installed = {
       "haskell",

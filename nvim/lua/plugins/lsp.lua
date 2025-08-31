@@ -106,10 +106,12 @@ return {
       snippet_engine = "luasnip",
       sources = {
         { name = "nvim_lsp" },
-        { name = "luasnip", keyword_length = 2 },
-        { name = "buffer",  keyword_length = 3 },
+        { name = "luasnip",          keyword_length = 2 },
+        { name = "buffer",           keyword_length = 3 },
         { name = "path" },
         { name = "emoji" },
+        { name = "nasm_registers" },
+        { name = "nasm_instructions" },
       },
       mapping = {
         ["<C-p>"] = "prev_item",

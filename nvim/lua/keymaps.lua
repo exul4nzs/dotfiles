@@ -194,6 +194,19 @@ keymap("n", "<Tab><Tab>", function()
   vim.cmd("bprevious " .. count)
 end, { desc = "y + Previous buffer", noremap = true, silent = true })
 
+
+-- Basic keybinding setup for LspUI
+keymap("n", "K", "<cmd>LspUI hover<CR>")
+keymap("n", "gr", "<cmd>LspUI reference<CR>")
+keymap("n", "gd", "<cmd>LspUI definition<CR>")
+keymap("n", "gt", "<cmd>LspUI type_definition<CR>")
+keymap("n", "gi", "<cmd>LspUI implementation<CR>")
+keymap("n", "<leader>rn", "<cmd>LspUI rename<CR>")
+keymap("n", "<leader>ca", "<cmd>LspUI code_action<CR>")
+keymap("n", "<leader>ci", "<cmd>LspUI call_hierarchy incoming_calls<CR>")
+keymap("n", "<leader>co", "<cmd>LspUI call_hierarchy outgoing_calls<CR>")
+
+
 -- Keep window centered when going up/down
 keymap("n", "J", "mzJ`z")
 keymap("n", "<C-d>", "<C-d>zz")

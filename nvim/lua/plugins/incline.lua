@@ -1,5 +1,6 @@
 return {
   'b0o/incline.nvim',
+  event = "VeryLazy",
   config = function()
     local helpers = require('incline.helpers')
     local incline = require('incline')
@@ -37,5 +38,5 @@ return {
       incline.refresh() -- force redraw
     end, { desc = "Toggle Incline" })
   end,
-  enabled = false,
+  -- enabled = false,
 }
