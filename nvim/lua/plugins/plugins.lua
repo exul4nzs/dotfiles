@@ -1,11 +1,4 @@
 return {
-  -- {
-  --   "MeanderingProgrammer/render-markdown.nvim",
-  --   event = "VeryLazy",
-  --   opts = {},
-  --   ft = { "markdown", "codecompanion" },
-  --   dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
-  -- },
   -- { 'folke/neodev.nvim', event = "VeryLazy", opts = {} },
 
   { "brenoprata10/nvim-highlight-colors" },
@@ -1348,21 +1341,6 @@ return {
   },
 
   {
-    "Pocco81/true-zen.nvim",
-    config = function()
-      require("true-zen").setup {
-        -- Optional: Customize TrueZen's behavior (minimal setup works fine)
-        modes = {
-          ataraxis = {     -- Distraction-free mode (used by Neorg presenter)
-            padding = {
-              left = 0.15, -- Adjust padding if needed
-            },
-          },
-        },
-      }
-    end,
-  },
-  {
     "nvim-neorg/neorg-telescope", -- Add this dependency
     dependencies = {
       "nvim-neorg/neorg",
@@ -1385,25 +1363,8 @@ return {
     dependencies = { "neovim/nvim-lspconfig" },
   },
   {
-    "roobert/surround-ui.nvim",
-    dependencies = {
-      "kylechui/nvim-surround",
-      "folke/which-key.nvim",
-    },
-    config = function()
-      require("surround-ui").setup {
-        root_key = "S",
-      }
-    end,
-  },
-  {
     "mawkler/refjump.nvim",
     event = "LspAttach", -- Uncomment to lazy load
-    opts = {},
-  },
-  {
-    "Fildo7525/pretty_hover",
-    event = "LspAttach",
     opts = {},
   },
   {
