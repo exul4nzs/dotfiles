@@ -647,8 +647,10 @@ return {
       }
     end,
   },
-  { "mg979/vim-visual-multi", event = "VeryLazy" },
-  { "tpope/vim-rails",        event = "VeryLazy" },
+  {
+    "tpope/vim-rails",
+    event = "VeryLazy"
+  },
   {
     "williamboman/mason.nvim",
     event = "VeryLazy",

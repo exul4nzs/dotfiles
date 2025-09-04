@@ -194,7 +194,6 @@ keymap("n", "<Tab><Tab>", function()
   vim.cmd("bprevious " .. count)
 end, { desc = "y + Previous buffer", noremap = true, silent = true })
 
-
 -- Basic keybinding setup for LspUI
 keymap("n", "K", "<cmd>LspUI hover<CR>")
 keymap("n", "gr", "<cmd>LspUI reference<CR>")
@@ -205,7 +204,6 @@ keymap("n", "<leader>rn", "<cmd>LspUI rename<CR>")
 keymap("n", "<leader>ca", "<cmd>LspUI code_action<CR>")
 keymap("n", "<leader>ci", "<cmd>LspUI call_hierarchy incoming_calls<CR>")
 keymap("n", "<leader>co", "<cmd>LspUI call_hierarchy outgoing_calls<CR>")
-
 
 -- Keep window centered when going up/down
 keymap("n", "J", "mzJ`z")
@@ -229,6 +227,7 @@ keymap("v", "<leader>d", '"_d', { desc = 'Delete without " register' })
 -- Get out Q
 keymap("n", "Q", "<nop>")
 keymap("n", "Q", "@@", opts)
+
 -- close buffer
 keymap("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close Buffer" })
 
@@ -347,6 +346,19 @@ keymap("n", "<C-S-Down>", ":resize +2<CR>", { desc = "Resize Horizontal Split Do
 keymap("n", "<C-S-Up>", ":resize -2<CR>", { desc = "Resize Horizontal Split Up" })
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Resize Vertical Split Down" })
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Resize Vertical Split Up" })
+
+-- Insert mode shenanigans
+keymap("i", "<A-j>", "<C-o>j", { desc = "Moves cursor down one line in insert mode" })
+keymap("i", "<A-k>", "<C-o>k", { desc = "Moves cursor up one line in insert mode" })
+keymap("i", "<A-l>", "<C-o>l", { desc = "Moves cursor right one space in insert mode" })
+keymap("i", "<A-h>", "<C-o>h", { desc = "Moves cursor left one space in insert mode" })
+keymap("i", "<C-v>", "<C-c>p", { desc = "Paste clipboard in insert mode" })
+keymap("i", "<A-w>", "<C-o>w", { desc = "Moves cursor one word in insert mode" })
+keymap("i", "<A-b>", "<C-o>b", { desc = "Moves cursor back one word in insert mode" })
+keymap("i", "<A-u>", "<C-o>u", { desc = "[U]ndoes last change" })
+keymap("i", "<A-r>", "<C-o><C-r>", { desc = "[R]edoes last change" })
+keymap("i", "<A-y>", "<C-c>yy", { desc = "[Y]anks current line" })
+keymap("i", "<A-v>", "<C-c>v", { desc = "Enters [V]isual mode" })
 
 -- Obsidian
 keymap(
