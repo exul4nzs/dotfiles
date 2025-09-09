@@ -153,6 +153,14 @@ alias g++17="g++ -std=c++17 -Wall -Wextra"
 alias coursier="$HOME/.local/share/coursier/bin/coursier"
 alias restart="c && exec zsh"
 
+# DOCX/ODT to PDF
+alias docx2pdf='libreoffice --headless --convert-to pdf'
+alias odt2pdf='libreoffice --headless --convert-to pdf'
+
+# PDF to DOCX/ODT  
+alias pdf2docx='libreoffice --headless --convert-to docx'
+alias pdf2odt='libreoffice --headless --convert-to odt'
+
 # K8S
 export KUBECONFIG=~/.kube/config
 alias k="kubectl"
@@ -263,8 +271,8 @@ zvm_after_init() {
     bindkey -a ds delete-surround
     bindkey -a ys add-surround
     bindkey -M visual s add-surround
+    bindkey -M viins '^R' fzf-history-widget
 }
-
 webinit() {
     # Check if project name is provided
     if [ -z "$1" ]; then
