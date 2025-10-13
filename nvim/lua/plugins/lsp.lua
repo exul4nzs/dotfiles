@@ -74,6 +74,7 @@ return {
       ensure_installed = {
         "eslint",
         "helm_ls",
+        "cssls",
         "rust_analyzer",
         "kotlin_language_server",
         "jdtls",
