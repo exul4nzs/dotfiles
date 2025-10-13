@@ -156,6 +156,7 @@ alias restart="c && exec zsh"
 # DOCX/ODT to PDF
 alias docx2pdf='libreoffice --headless --convert-to pdf'
 alias odt2pdf='libreoffice --headless --convert-to pdf'
+alias odg2pdf='libreoffice --headless --convert-to pdf'
 
 # PDF to DOCX/ODT  
 alias pdf2docx='libreoffice --headless --convert-to docx'
