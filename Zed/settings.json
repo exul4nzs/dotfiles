@@ -21,6 +21,11 @@
   },
   "session": {
     "trust_all_worktrees": true,
+    "restore_unsaved_buffers": false,
+  },
+  "centered_layout": {
+    "right_padding": 0.15,
+    "left_padding": 0.15,
   },
   "vim_mode": true,
   "ui_font_size": 16,
@@ -61,6 +66,13 @@
       "milliseconds": 1000,
     },
   },
+  "extend_comment_on_newline": false,
+  "horizontal_scroll_margin": 1,
+  "vertical_scroll_margin": 1,
+  "when_closing_with_no_tabs": "keep_window_open",
+  "close_on_file_delete": true,
+  "restore_on_file_reopen": false,
+  "restore_on_startup": "empty_tab",
 
   "title_bar": {
     "show_branch_name": false,
@@ -71,7 +83,7 @@
     "show": false,
   },
   "toolbar": {
-    "quick_actions": true,
+    "quick_actions": false,
   },
   "status_bar": {
     "experimental.show": false,
