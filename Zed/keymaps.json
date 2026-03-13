@@ -1,0 +1,78 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "shift shift": "file_finder::Toggle",
+      "alt-e": "project_panel::ToggleFocus",
+      "alt-o": "outline_panel::ToggleFocus",
+      "alt-a": "agent::Toggle",
+      "alt-g": "git_panel::ToggleFocus",
+      "alt-q": "pane::CloseActiveItem",
+      "alt-t": "terminal_panel::ToggleFocus",
+      "ctrl-x": "project_panel::Cut",
+      "ctrl-c": "project_panel::Copy",
+      "ctrl-v": "project_panel::Paste",
+      "delete": "project_panel::Delete",
+      "alt-j": "workspace::ToggleBottomDock",
+      "alt-h": "workspace::ToggleLeftDock",
+      "alt-l": "workspace::ToggleRightDock",
+      "alt-n": "notification_panel::Toggle",
+      "alt-c": "collab_panel::Toggle",
+      "alt-d": "debug_panel::Toggle",
+    },
+  },
+
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "ctrl-a": "project_panel::NewFile",
+      "ctrl-shift-a": "project_panel::NewDirectory",
+      "ctrl-d": "project_panel::Delete",
+      "ctrl-r": "project_panel::Rename",
+    },
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "ctrl-g j": "git::Pull",
+    },
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "ctrl-g k": "git::Push",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "tab": "editor::AcceptEditPrediction",
+    },
+  },
+
+  {
+    "context": "Workspace && notification_visible",
+    "bindings": {
+      "ctrl-c": "workspace::ClearAllNotifications",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "shift-y": "editor::Copy",
+    },
+  },
+]
