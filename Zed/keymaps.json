@@ -75,4 +75,40 @@
       "shift-y": "editor::Copy",
     },
   },
+  {
+    "bindings": {
+      "alt-m": "vim::ToggleMarksView",
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-w": null,
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-w": null,
+    },
+  },
+
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "space": null, // Disable the default action vim::WrappingRight
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "s": ["vim::PushAddSurrounds", {}],
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": null,
+    },
+  },
 ]
