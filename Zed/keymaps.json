@@ -9,7 +9,7 @@
   {
     "context": "Workspace",
     "bindings": {
-      "shift shift": "file_finder::Toggle",
+      "shift f": "file_finder::Toggle",
       "alt-e": "project_panel::ToggleFocus",
       "alt-o": "outline_panel::ToggleFocus",
       "alt-a": "agent::Toggle",
@@ -23,12 +23,11 @@
       "alt-j": "workspace::ToggleBottomDock",
       "alt-h": "workspace::ToggleLeftDock",
       "alt-l": "workspace::ToggleRightDock",
-      "alt-n": "notification_panel::Toggle",
+      // "alt-n": "notification_panel::Toggle",
       "alt-c": "collab_panel::Toggle",
       "alt-d": "debug_panel::Toggle",
     },
   },
-
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
@@ -111,4 +110,9 @@
       "shift-s": null,
     },
   },
+  {
+    "bindings": {
+      "ctrl-alt-m": "editor::ToggleMinimap"
+    }
+  }
 ]
