@@ -6,8 +6,11 @@
 // To see all of Zed's default settings without changing your
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
+
 {
-  "disable_ai": true,
+  "restore_on_startup": "launchpad",
+  "buffer_font_family": "JetBrainsMonoNL Nerd Font Mono",
+  "disable_ai": false,
   "snippet_sort_order": "bottom",
   "relative_line_numbers": "wrapped",
   "icon_theme": "Warm Charmed Icons",
@@ -94,12 +97,12 @@
   "when_closing_with_no_tabs": "keep_window_open",
   "close_on_file_delete": true,
   "restore_on_file_reopen": false,
-  "restore_on_startup": "empty_tab",
 
   "title_bar": {
     "show_branch_name": false,
     "show_project_items": false,
     "show_onboarding_banner": false,
+    "show_user_menu": false,
   },
   "tab_bar": {
     "show": false,
@@ -116,6 +119,9 @@
     "auto_fold_dirs": false,
     "starts_open": false,
     "sticky_scroll": false,
+    "scrollbar": {
+      "show": "never",
+    },
     "indent_guides": {
       "show": "never",
     },
@@ -131,25 +137,25 @@
   "outline_panel": {
     "dock": "right",
     "default_width": 300,
-    "indent_guides": {
-      "show": "never",
-    },
+    // "indent_guides": {
+    //   "show": "never",
+    // },
   },
 
   "file_finder": {
     "modal_max_width": "large",
   },
-  "collaboration_panel": {
-    "dock": "right",
-    "default_width": 300,
+  "scrollbar": {
+    "show": "never",
   },
-  "notification_panel": {
+  "collaboration_panel": {
     "dock": "right",
     "default_width": 300,
   },
   "gutter": {
     "min_line_number_digits": 0,
     "folds": false,
+    "runnables": false,
   },
 
   "lsp": {
